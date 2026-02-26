@@ -4,11 +4,10 @@ import Title from './Title'
 const Features = () => {
   return (
     <>
-   <div className='flex flex-col gap-4 items-center justify-center'>
+   <div className='hidden sm:flex flex-col gap-4 items-center justify-center'>
 
-    <Title title='Create your Resume'  descripction='Our Streamlined process help you create a professional resume with in minutes with intelligent AI powered tools and features'/>
-    
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 z-50 flex items-center justify-between w-full py-4 px-6 md:px-16 lg:px-24 xl:px-40">
+  
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 z-50 flex items-center justify-between w-full py-4 px-3 md:px-16 lg:px-24 xl:px-40">
                 <div className="size-[520px] top-0 left-1/2 -translate-x-1/2 rounded-full absolute blur-[300px] -z-10 bg-[#FBFFE1]/70"></div>
                 <div className="flex flex-col items-center justify-center max-w-80 px-6 py-4 bg-white  shadow-lg shadow-indigo-200 cursor-pointer rounded-lg hover:shadow-2xl hover:shadow-indigo-300">
                     <div className="p-6 aspect-square bg-violet-100 rounded-full">
