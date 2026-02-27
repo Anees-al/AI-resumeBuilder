@@ -1,18 +1,32 @@
-import { FilePenIcon, PencilIcon, PlusIcon, TrashIcon, UploadCloudIcon } from 'lucide-react'
+import { FilePenIcon, PencilIcon, PlusIcon, TrashIcon, UploadCloudIcon, XIcon } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import { dummyResumeData } from '../assets/assets';
+import { useNavigate } from 'react-router-dom';
 const Dashboard = () => {
   const [allresume,setAllresume]=useState([]);
+  const [showCreateResume,setShowCreateResume]=useState(false);
+  const [showUploadResume,setShowUploadResume]=useState(false)
+  const[title,setTile]=useState('');
+  const[resume,setResume]=useState(null);
+  const[resumeId,setResumeId]=useState(null)
   const colors=["#4F46E5", "#EC4899", "#14B8A6"]
 
   const loadResume=()=>{
     setAllresume(dummyResumeData)
   }
 
+  const navigate =useNavigate()
+
 useEffect(()=>{
 loadResume()
 },[])
 
+
+const createResume=(e)=>{
+  e.preventDefault();
+  setShowCreateResume(false);
+  navigate('/app/builder/res123')
+}
 
 
 
@@ -22,7 +36,7 @@ loadResume()
 
 
       <div className='flex sm:flex-row gap-3 items-center justify-center mt-10'>
-             <button className='w-full bg-white sm:max-w-35 h-48 flex flex-col items-center justify-center border border-dashed border-gray-400 group rounded-lg gap-2 cursor-pointer hover:border-purple-500'>
+             <button className='w-full bg-white sm:max-w-35 h-48 flex flex-col items-center justify-center border border-dashed border-gray-400 group rounded-lg gap-2 cursor-pointer hover:border-purple-500' onClick={()=>setShowCreateResume(true)}>
                 <PlusIcon  className='size-11 transition-all duration-300 p-2.5 text-white bg-gradient-to-br from-indigo-300 to-indigo-500 rounded'/>
                 <p className='text-sm'>Create Resume</p>
              </button>
@@ -60,6 +74,20 @@ loadResume()
     )
   })}
       </div>
+
+
+      {
+        showCreateResume && (
+          <form onSubmit={createResume} className='fixed inset-0 bg-black/70 backdrop-blur bg-opacity-50 z-10 flex items-center justify-center '  onClick={()=>setShowCreateResume(false)}>
+            <div className='relative bg-slate-50 border shadow-md rounded-lg w-full max-w-[350px] p-6 '  onClick={e=>e.stopPropagation()}>
+              <h1 className='text-xl font-semibold mb-4 text-center'>Create Resume</h1>
+              <input type="text"  placeholder='enter the title of the resume' required className='w-full px-4 py-2 mb-4 focus:border-green-600 ring-green-600 ' />
+              <button className='w-full bg-green-600 text-white rounded hover:bg-green-700 transition-colors py-1.5'>Create Resume</button>
+              <XIcon className='absolute top-4 right-4 text-slate-400 hover:text-slate-600 cursor-pointer transition-colors'   onClick={()=>{setShowCreateResume(false);  setTile('')}}/>
+            </div>
+          </form>
+        )
+      }
     </div>
   )
 }
