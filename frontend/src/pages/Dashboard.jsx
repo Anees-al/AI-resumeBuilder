@@ -139,7 +139,7 @@ const deleteResume=(resumeId)=>{
 
           
               </div>
-              <button className='w-full bg-green-600 text-white rounded hover:bg-green-700 transition-colors py-1.5'>Upload the  Resume</button>
+              <button className='w-full bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors py-1.5'>Upload the  Resume</button>
               <XIcon className='absolute top-4 right-4 text-slate-400 hover:text-slate-600 cursor-pointer transition-colors'   onClick={()=>{setShowUploadResume(false);  setTile('')}}/>
             </div>
           </form>
