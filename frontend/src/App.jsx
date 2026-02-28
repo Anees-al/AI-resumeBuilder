@@ -17,7 +17,7 @@ const App = () => {
 
 <Route path='app'  element={<Layout/>}>
 <Route   index   element={<Dashboard/>}/>
-<Route  path='builder/resumeid:'   element={<Resume/>}/>
+<Route  path='builder/:resumeid'   element={<Resume/>}/>
 </Route>
 
 
