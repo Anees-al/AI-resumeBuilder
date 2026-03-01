@@ -4,6 +4,7 @@ import { dummyResumeData } from '../assets/assets'
 import { ArrowLeftIcon, Briefcase, ChevronLeft, ChevronRight, FileText, FolderIcon, GraduationCap, SkipBack, Sparkle, User } from 'lucide-react'
 import PersonalInfo from '../components/PersonalInfo'
 import ResumePreview from '../components/ResumePreview'
+import TempalteSelector from '../components/templates/TempalteSelector'
 
 const Resume = () => {
 
@@ -11,16 +12,18 @@ const Resume = () => {
   const [resumeData,setResumeData]=useState({
     _id:'',
     title:'',
-    professionalsummary:'',
+    professional_summary:'',
     personal_info:{
-      name:'',
-    email:'',
-    phone:'',
-    image:null
+     full_name: '',
+    email: '',
+    phone: '',
+    location: '',
+    profession: '',
+    image: null
     },
     experience:[],
     education:[],
-    projects:[],
+    project:[],
     skills:[],
     template:'classic',
     accentcolor:"#3b82f6",
@@ -85,8 +88,8 @@ const activeSection=section[activeSectionIndex]
 
                        {/*section  navigation*/}
                        <div className='flex justify-between items-center mb-6 border-b border-gray-500 py-1'>
-                         <div>
-                          
+                         <div className='flex justify-between items-center mb-6 border-b border-gray-300 py-1'>
+                          <TempalteSelector  selectedTemplate={resumeData.template} onChange={(template)=>setResumeData(prev=>({...prev,template}))}/>
                          </div>
 
 
@@ -125,7 +128,7 @@ const activeSection=section[activeSectionIndex]
                        </div>
 
                        <div>
-                        <ResumePreview  data={resumeData} template={resumeData.template}  accetColor={resumeData.accentcolor}/>
+                        <ResumePreview  data={resumeData} template={resumeData.template}  accentColor={resumeData.accentcolor}/>
                        </div>
 
                    </div>
