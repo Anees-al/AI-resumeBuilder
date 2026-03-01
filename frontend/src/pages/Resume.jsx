@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { dummyResumeData } from '../assets/assets'
 import { ArrowLeftIcon, Briefcase, ChevronLeft, ChevronRight, FileText, FolderIcon, GraduationCap, SkipBack, Sparkle, User } from 'lucide-react'
+import PersonalInfo from '../components/PersonalInfo'
+import ResumePreview from '../components/ResumePreview'
 
 const Resume = () => {
 
@@ -10,6 +12,12 @@ const Resume = () => {
     _id:'',
     title:'',
     professionalsummary:'',
+    personal_info:{
+      name:'',
+    email:'',
+    phone:'',
+    image:null
+    },
     experience:[],
     education:[],
     projects:[],
@@ -89,10 +97,20 @@ const activeSection=section[activeSectionIndex]
                       </button>
                      )}
 
-                      <button onClick={()=>setActiveSectionIndex(prev=>Math.min(prev+1,section.length-1))} className={`flex items-center gap-1 p-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200 transition-all  ${activeSectionIndex===section.lenght-1   && 'opacity-50'}`}  disabled={activeSectionIndex===section.length-1}>
+                      <button onClick={()=>setActiveSectionIndex(prev=>Math.min(prev+1,section.length-1))} className={`flex items-center gap-1 p-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200 transition-all  ${activeSectionIndex===section.length-1   && 'opacity-50'}`}  disabled={activeSectionIndex===section.length-1}>
                        Next <ChevronRight className='size-4'/>
                       </button>
                          </div>
+                       </div>
+
+
+
+                       <div className='space-y-6'>
+                        {
+                          activeSection.id=== 'personal' &&(
+                            <PersonalInfo data={resumeData.personal_info} onChange={(data)=>setResumeData(prev=>({...prev,personal_info:data}))}   removeBackground={removeBackground}   setRemoveBackground={setRemoveBackground}/>
+                          )
+                        }
                        </div>
                      </div>
 
@@ -101,7 +119,14 @@ const activeSection=section[activeSectionIndex]
 
 
                    {/*right*/}
-                   <div>
+                   <div className='lg:col-span-7 max-lg:mt-6'>
+                       <div>
+                        {/*buttons*/}
+                       </div>
+
+                       <div>
+                        <ResumePreview  data={resumeData} template={resumeData.template}  accetColor={resumeData.accentcolor}/>
+                       </div>
 
                    </div>
              </div>
