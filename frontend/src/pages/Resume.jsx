@@ -5,6 +5,12 @@ import { ArrowLeftIcon, Briefcase, ChevronLeft, ChevronRight, FileText, FolderIc
 import PersonalInfo from '../components/PersonalInfo'
 import ResumePreview from '../components/ResumePreview'
 import TempalteSelector from '../components/templates/TempalteSelector'
+import ColorPicker from '../components/ColorPicker'
+import ProfessionalSummary from '../components/ProfessionalSummary'
+import Experience from '../components/Experience'
+import Education from '../components/Education'
+import Projects from '../components/Projects'
+import Skills from '../components/Skills'
 
 const Resume = () => {
 
@@ -23,11 +29,11 @@ const Resume = () => {
     },
     experience:[],
     education:[],
-    project:[],
+    projects:[],
     skills:[],
     template:'classic',
-    accentcolor:"#3b82f6",
-    public:'false'
+    accent_color:"#3b82f6",
+    public:false
   })
 
 
@@ -55,7 +61,7 @@ const section=[
   {id:"summary",name:"sumamry",icon:FileText},
   {id:"experience",name:"Experience",icon:Briefcase},
   {id:"education",name:"Education",icon:GraduationCap},
-  {id:"project",name:"Project",icon:FolderIcon},
+  {id:"projects",name:"Project",icon:FolderIcon},
   {id:"skills",name:"Skill",icon:Sparkle}
 
 
@@ -88,8 +94,9 @@ const activeSection=section[activeSectionIndex]
 
                        {/*section  navigation*/}
                        <div className='flex justify-between items-center mb-6 border-b border-gray-500 py-1'>
-                         <div className='flex justify-between items-center mb-6 border-b border-gray-300 py-1'>
+                         <div className='flex items-center'>
                           <TempalteSelector  selectedTemplate={resumeData.template} onChange={(template)=>setResumeData(prev=>({...prev,template}))}/>
+                            <ColorPicker  selectedColor={resumeData.accent_color}  onChange={(color)=>setResumeData(prev=>({...prev,accent_color:color}))}/>
                          </div>
 
 
@@ -99,6 +106,9 @@ const activeSection=section[activeSectionIndex]
                         <ChevronLeft className='size-4'/>Previous
                       </button>
                      )}
+
+
+                     
 
                       <button onClick={()=>setActiveSectionIndex(prev=>Math.min(prev+1,section.length-1))} className={`flex items-center gap-1 p-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200 transition-all  ${activeSectionIndex===section.length-1   && 'opacity-50'}`}  disabled={activeSectionIndex===section.length-1}>
                        Next <ChevronRight className='size-4'/>
@@ -114,7 +124,50 @@ const activeSection=section[activeSectionIndex]
                             <PersonalInfo data={resumeData.personal_info} onChange={(data)=>setResumeData(prev=>({...prev,personal_info:data}))}   removeBackground={removeBackground}   setRemoveBackground={setRemoveBackground}/>
                           )
                         }
+
+
+                        {
+                          activeSection.id==="summary"&&(
+                            <ProfessionalSummary  data={resumeData.professional_summary}  setResumeData={setResumeData}   onChnage={(data)=>setResumeData(prev=>({...prev,professional_summary:data}))}/>
+                          )
+                        }
+
+
+
+                        {
+                          activeSection.id==="experience" && (
+                            <Experience data={resumeData.experience}  onChange={(data)=>setResumeData(prev=>({...prev,experience:data}))} setResumeData={setResumeData}/>
+                          )
+                        }
+
+
+                        {
+                          activeSection.id==="education" && (
+                            <Education data={resumeData.education}  onChange={(data)=>setResumeData(prev=>({...prev,education:data}))} setResumeData={setResumeData}/>
+                          )
+                        }
+
+
+                        {
+                          activeSection.id==="projects" && (
+                            <Projects data={resumeData.projects}  onChange={(data)=>setResumeData(prev=>({...prev,projects:data}))} />
+                          )
+                        }
+
+
+
+
+                        {
+                          activeSection.id==="skills" && (
+                            <Skills data={resumeData.skills}  onChange={(data)=>setResumeData(prev=>({...prev,skills:data}))} />
+                          )
+                        }
+
+
+
+                        
                        </div>
+                       <button className='bg-gradient-to-br from-blue-100 to-blue-200 ring ring-blue-600 text-blue-600 hover:ring-blue-500 transition-all rounded-md px-6 py-2 mt-6 text-sm'>Save Changes</button>
                      </div>
 
 
@@ -128,7 +181,7 @@ const activeSection=section[activeSectionIndex]
                        </div>
 
                        <div>
-                        <ResumePreview  data={resumeData} template={resumeData.template}  accentColor={resumeData.accentcolor}/>
+                        <ResumePreview  data={resumeData} template={resumeData.template}  accentColor={resumeData.accent_color}/>
                        </div>
 
                    </div>
