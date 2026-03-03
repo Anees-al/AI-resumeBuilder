@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { dummyResumeData } from '../assets/assets'
-import { ArrowLeftIcon, Briefcase, ChevronLeft, ChevronRight, FileText, FolderIcon, GraduationCap, SkipBack, Sparkle, User } from 'lucide-react'
+import { ArrowLeftIcon, Briefcase, ChevronLeft, ChevronRight, DownloadIcon, EyeIcon, EyeOffIcon, FileText, FolderIcon, GraduationCap, Share2Icon, SkipBack, Sparkle, User } from 'lucide-react'
 import PersonalInfo from '../components/PersonalInfo'
 import ResumePreview from '../components/ResumePreview'
 import TempalteSelector from '../components/templates/TempalteSelector'
@@ -33,7 +33,7 @@ const Resume = () => {
     skills:[],
     template:'classic',
     accent_color:"#3b82f6",
-    public:false
+    public:true
   })
 
 
@@ -69,6 +69,27 @@ const section=[
 
 
 const activeSection=section[activeSectionIndex]
+const changeResumeVisiblity=async()=>{
+  setResumeData({...resumeData,public:!resumeData.public})
+}
+
+
+const handleShare=()=>{
+  const frontendurl=window.location.href.split('/app/')[0]
+  const resumeUrl=frontendurl+'/view/'+resumeid;
+
+
+  if(navigator.share){
+    navigator.share({url:resumeUrl,text:"My Resume"});
+  }else{
+    alert("share not support in this browser")
+  }
+}
+
+
+const downloadResume=()=>{
+  window.print()
+}
 
 
  
@@ -176,8 +197,25 @@ const activeSection=section[activeSectionIndex]
 
                    {/*right*/}
                    <div className='lg:col-span-7 max-lg:mt-6'>
-                       <div>
-                        {/*buttons*/}
+                       <div className='relative w-full'>
+                        <div className='absolute bottom-3 left-0 right-0 flex items-center justify-end gap-2'>
+                          {
+                            resumeData.public && (
+                              <button onClick={handleShare} className='flex items-center p-2 px-4 gap-2 text-xs bg-gradient-to-br from-blue-100 to-blue-200 text-blue-600 rounded-lg ring-blue-300 hover:ring transition-colors'>
+                                <Share2Icon/>
+                              </button>
+                            )
+                          }
+                          <button onClick={changeResumeVisiblity} className='flex items-center p-2 px-4 gap-2 text-xs bg-gradient-to-br from-purple-100 to-purple-200 text-purple-600 rounded-lg ring-purple-300 hover:ring transition-colors'>
+                            {resumeData.public ?<EyeIcon className='size-4'/>:<EyeOffIcon className='size-4'/>}
+                            {resumeData.public ?'Public':'Private'}
+                          </button>
+
+                          <button  onClick={downloadResume} className='flex items-center p-2 px-4 gap-2 text-xs bg-gradient-to-br from-green-100 to-green-200 text-green-600 rounded-lg ring-green-300 hover:ring transition-colors'>
+                            <DownloadIcon className='size-4'/>
+                            Download
+                          </button>
+                        </div>
                        </div>
 
                        <div>
