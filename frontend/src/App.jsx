@@ -5,12 +5,14 @@ import Dashboard from './pages/Dashboard'
 import Resume from './pages/Resume'
 import Login from './pages/Login'
 import Preview from './pages/Preview'
+import {ToastContainer} from 'react-toastify'
 
 
 
 const App = () => {
   return (
     <div >
+      <ToastContainer/>
       <Routes>
 <Route path='/'  element={<Home/>} />
 

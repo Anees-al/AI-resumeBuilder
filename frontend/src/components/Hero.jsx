@@ -1,9 +1,14 @@
 import React from 'react'
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuthStore } from '../store';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
     const [menuOpen, setMenuOpen] = useState(false);
+    const {isAuthenticated,logout}=useAuthStore()
+    const navigate=useNavigate()
+
 
    
 
@@ -16,9 +21,9 @@ const Hero = () => {
             <p><span className="px-3 py-1 rounded-lg text-white bg-indigo-500 mr-2">New</span >AI Feature Added</p>
         </div>
                 <nav className="z-50 flex items-center justify-between w-full py-4 px-6 md:px-16 lg:px-24 xl:px-40 text-sm">
-                    <h1 className='text-2xl font-semibold'>
+                    <Link className='text-2xl font-semibold cursor-pointer'  onClick={navigate('/')}>
                         Resume
-                    </h1>
+                    </Link>
 
                     <div className="hidden md:flex items-center gap-8 transition duration-500 text-slate-800">
                         <a href="#" className="hover:text-indigo-600 transition">Home</a>
@@ -28,12 +33,23 @@ const Hero = () => {
                     </div>
 
                     <div className="flex gap-2">
-                        <Link to='/login?state=register' className=" md:block px-6 py-2 bg-indigo-500 hover:bg-indigo-700 active:scale-95 transition-all rounded-full text-white cursor-pointer">
-                            Get started
-                        </Link>
+                        
+                        {
+                            isAuthenticated ? < button onClick={logout}  className="hidden md:block px-6 py-2 border active:scale-95 hover:bg-slate-50 transition-all rounded-full text-slate-700 hover:text-slate-900" >
+                            Logout
+                        </button>
+                        
+                        :
+                        <div className='flex gap-3'>
                         < Link to='/login?state=login' className="hidden md:block px-6 py-2 border active:scale-95 hover:bg-slate-50 transition-all rounded-full text-slate-700 hover:text-slate-900" >
                             Login
                         </Link>
+
+                        <Link to='/login?state=register' className=" md:block px-6 py-2 bg-indigo-500 hover:bg-indigo-700 active:scale-95 transition-all rounded-full text-white cursor-pointer">
+                            Get started
+                        </Link>
+                        </div>
+                        }
                     </div>
 
                     <button onClick={() => setMenuOpen(true)} className="md:hidden active:scale-90 transition" >
@@ -90,7 +106,7 @@ const Hero = () => {
       <path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5"></path>
       <rect x="2" y="6" width="14" height="12" rx="2"></rect>
     </svg>
-    <span>Try demo</span>
+    <span>Create Resume</span>
   </Link>
 </div>
 

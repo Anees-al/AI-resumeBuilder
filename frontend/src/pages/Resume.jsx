@@ -11,10 +11,13 @@ import Experience from '../components/Experience'
 import Education from '../components/Education'
 import Projects from '../components/Projects'
 import Skills from '../components/Skills'
+import axios from 'axios'
+import { useAuthStore } from '../store'
 
 const Resume = () => {
 
  const {resumeid}=useParams()
+ const {API_URL}=useAuthStore()
   const [resumeData,setResumeData]=useState({
     _id:'',
     title:'',
@@ -43,11 +46,15 @@ const Resume = () => {
 
 
   const loadResume=async()=>{
-    const resume=dummyResumeData.find(resume=>resume._id===resumeid);
-    if(resume){
-      setResumeData(resume)
-      document.title=resume.title
-     
+    try {
+      const {data}=await axios.get(`${API_URL}/resume/get/`+resumeid,{ withCredentials: true });
+      
+      if(data.resume){
+        setResumeData(data.resume)
+        document.title=data.resume.title;
+      }
+    } catch (error) {
+      console.log(error.message)
     }
   }
 
@@ -69,8 +76,24 @@ const section=[
 
 
 const activeSection=section[activeSectionIndex]
+
+
 const changeResumeVisiblity=async()=>{
-  setResumeData({...resumeData,public:!resumeData.public})
+  try {
+    const formdata=new FormData()
+    formdata.append("resumeid",resumeid)
+   formdata.append("resumeData",JSON.stringify({public:!resumeData.public}))
+  
+    const {data}=await axios.put(`${API_URL}/resume/update`,{
+        resumeId: resumeid,
+        resumeData: { public: !resumeData.public }
+      },{ withCredentials: true });
+    setResumeData({...resumeData,public:!resumeData.public})
+    
+      
+  } catch (error) {
+    console.log(error.response?.data)
+  }
 }
 
 

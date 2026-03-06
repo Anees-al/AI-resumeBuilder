@@ -1,23 +1,49 @@
 import React from 'react'
 import { useState } from 'react'
+import { useAuthStore } from '../store'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const Login = () => {
-    const query=new URLSearchParams(window.location.search)
-    const urlstate=query.get('state')
-    const [state, setState] = useState(urlstate||"login")
+    
+    const [state, setState] = useState('login')
+    const {createUser,login}=useAuthStore()
+    const navigate=useNavigate()
 
 
 
-    const [formData, setFormData] = React.useState({
-        name: '',
+    const [formData, setFormData] =useState({
+        username: '',
         email: '',
         password: ''
     })
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+  e.preventDefault()
+
+  try {
+
+    if (state === "login") {
+      await login({
+        email: formData.email,
+        password: formData.password
+      })
+      navigate('/')
+      toast.success("successfully logined")
+
+    } else {
+      navigate('/')
+      await createUser(formData)
+      navigate('/')
+      toast.success("successfully registered")
 
     }
+
+  } catch (error) {
+    console.error("Auth Error:", error)
+    alert(error.message)
+  }
+}
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -31,7 +57,7 @@ const Login = () => {
                 {state !== "login" && (
                     <div className="flex items-center mt-6 w-full bg-white border border-gray-300/80 h-12 rounded-full overflow-hidden pl-6 gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-user-round-icon lucide-user-round"><circle cx="12" cy="8" r="5" /><path d="M20 21a8 8 0 0 0-16 0" /></svg>
-                        <input type="text" name="name" placeholder="Name" className="border-none outline-none ring-0" value={formData.name} onChange={handleChange} required />
+                        <input type="text" name="username" placeholder="Name" className="border-none outline-none ring-0" value={formData.username} onChange={handleChange} required />
                     </div>
                 )}
                 <div className="flex items-center w-full mt-4 bg-white border border-gray-300/80 h-12 rounded-full overflow-hidden pl-6 gap-2">

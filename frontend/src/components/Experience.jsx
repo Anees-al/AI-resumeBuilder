@@ -1,9 +1,12 @@
 import { Briefcase, Plus, Sparkle, Trash } from 'lucide-react'
-import React from 'react'
+import React, { useState } from 'react'
+import { useAuthStore } from '../store'
+import axios from 'axios'
 
 const Experience = ({data,onChange}) => {
 
-
+    const {API_URL}=useAuthStore()
+    const [loading,setLoading]=useState(false)
     const addExperience=()=>{
         const newExperience={
             company:"",
@@ -29,6 +32,29 @@ const Experience = ({data,onChange}) => {
             const update=[...data]
             update[index]={...update[index],[field]:value}
             onChange(update)
+    }
+
+
+    const enhance=async(index)=>{
+       setLoading(true)
+      try {
+        const description = data[index].description
+        const res=await axios.post(`${API_URL}/ai/enhance-job`,{userContent:description})
+
+        const updated = [...data]
+
+    updated[index] = {
+      ...updated[index],
+      description: res.data.enhancedContent
+    }
+
+    onChange(updated)
+
+        
+      } catch (error) {
+         console.log(error)
+      }
+       setLoading(false)
     }
   return (
     <div className='space-y-4'>
@@ -80,13 +106,13 @@ const Experience = ({data,onChange}) => {
                       <div className='space-y-3'>
                         <div className='flex items-center justify-between'>
                             <label htmlFor="" className='text-sm font-medium text-gray-500'>Job description</label>
-                        <button className='flex items-center gap-2 px-3 py-2 text-sm bg-purple-100 text-purple-700 rounded hover:bg-purple-200 transition-colors disable:opacity-50'>
+                        <button onClick={() => enhance(index)} className='flex items-center gap-2 px-3 py-2 text-sm bg-purple-100 text-purple-700 rounded hover:bg-purple-200 transition-colors disable:opacity-50'>
                             <Sparkle className='w-3 h-3'/>
-                            Enhance with AI
+                             {loading ? "Generating..." : "AI Enhance"}
                         </button>
                         </div>
 
-                        <textarea  rows={6}  value={experience.description || ""}  onChange={(e)=>updateExperience(index,"description",e.target.value)} className='w-full p-3 px-4 mt-2 border text-sm border-gray-300 rounded-lg focus:ring focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors resize-none'   placeholder='describe your experience and achievments'/>
+                        <textarea  rows={6}  value={experience.description}  onChange={(e)=>updateExperience(index,"description",e.target.value)} className='w-full p-3 px-4 mt-2 border text-sm border-gray-300 rounded-lg focus:ring focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors resize-none'   placeholder='describe your experience and achievments'/>
                       </div>
                 </div>
              ))}  
