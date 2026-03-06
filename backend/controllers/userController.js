@@ -86,6 +86,20 @@ export const login=async(req,res)=>{
 
 
 
+export const logout=async(req,res)=>{
+    try {
+        res.clearCookie('token',{
+              httpOnly:true,
+            sameSite: "lax"
+        })
+       return res.status(200).json({message:'successfully logout'})
+    } catch (error) {
+       return res.status(400).json({message:error.message})
+    }
+}
+
+
+
 export const getUserById=async(req,res)=>{
     try {
         const userId=req.userId;

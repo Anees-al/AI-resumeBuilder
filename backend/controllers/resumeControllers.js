@@ -10,7 +10,7 @@ export const createResume=async(req,res)=>{
         const {title}=req.body;
 
         const newResume=await resumeModel.create({userId,title});
-        return res.status(201).json({message:'successfully create new resume'});
+        return res.status(201).json({message:'successfully create new resume',newResume});
     } catch (error) {
         return res.status(400).json({message:error.message})
     }
@@ -21,7 +21,7 @@ export const deleteResume=async(req,res)=>{
     try {
         const userId=req.userId;
         const {resumeId}=req.params;
-        await resumeModel.findOneandDelete({userId,_id:resumeId})
+        await resumeModel.findByIdAndDelete({userId,_id:resumeId})
         
 
         return res.status(200).json({message:'delete resume successfully'});
@@ -80,7 +80,7 @@ export const updateResume=async(req,res)=>{
        const userId=req.userId;
        const {resumeData,resumeId,removeBackground}=req.body
        const image=req.file;
-       const resumeDataCopy=JSON.parse(resumeData)
+       const resumeDataCopy=JSON.parse(JSON.stringify(resumeData))
 
        if(image){
         const bufferimage=fs.createReadStream(image.path)
@@ -97,7 +97,7 @@ export const updateResume=async(req,res)=>{
 
           resumeDataCopy.personal_info.image=response.url
        }
-       const resume=await resumeModel.findByIdAndUpdate({userId,_id:resumeId,},resumeDataCopy,{new:true})
+       const resume=await resumeModel.findOneAndUpdate({ _id: resumeId, userId },resumeDataCopy,{new:true})
        return res.status(200).json({message:'successfully update the resume',resume})
     } catch (error) {
         return res.status(400).json({message:error.message}) 
