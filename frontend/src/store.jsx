@@ -2,12 +2,12 @@ import { create } from "zustand"
 import { persist } from "zustand/middleware"
 import axios from "axios"
 
-const API_URL = "https://ai-resumebuilder-4vr2.onrender.com/api"
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const useAuthStore = create(
   persist(
     (set,get) => ({
-      API_URL :"https://ai-resumebuilder-4vr2.onrender.com/api",
+      API_URL ,
       user: null,
       isAuthenticated: false,
 
