@@ -36,7 +36,7 @@ const resumeShema=new mongoose.Schema({
     project:[
         {
             name:{type:String},
-            type:{type:String},
+            
             description:{type:String}
             
 

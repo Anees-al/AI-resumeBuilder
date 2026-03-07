@@ -80,7 +80,7 @@ export const updateResume=async(req,res)=>{
        const userId=req.userId;
        const {resumeData,resumeId,removeBackground}=req.body
        const image=req.file;
-       const resumeDataCopy=JSON.parse(JSON.stringify(resumeData))
+       const resumeDataCopy=JSON.parse(resumeData)
 
        if(image){
         const bufferimage=fs.createReadStream(image.path)
@@ -97,7 +97,7 @@ export const updateResume=async(req,res)=>{
 
           resumeDataCopy.personal_info.image=response.url
        }
-       const resume=await resumeModel.findOneAndUpdate({ _id: resumeId, userId },resumeDataCopy,{new:true})
+       const resume=await resumeModel.findOneAndUpdate({ _id: resumeId, userId },{ $set: resumeDataCopy },{new:true})
        return res.status(200).json({message:'successfully update the resume',resume})
     } catch (error) {
         return res.status(400).json({message:error.message}) 
