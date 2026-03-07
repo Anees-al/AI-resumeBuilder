@@ -1,16 +1,17 @@
 import { Briefcase, Plus, Trash } from 'lucide-react'
 import React from 'react'
 
-const Projects = ({data,onChange}) => {
+const Projects = ({data=[],onChange}) => {
     const addProject=()=>{
-        const newProject={
-           name:"",
-           types:"",
-           descripction:""
-        }
+        const newProject = {
+ name: "",
+ project_type: "",
+ description: ""
+}
 
 
-        onChange([...data,newProject])
+        onChange([...(data || []), newProject])
+        console.log(newProject)
     }
 
 
@@ -32,7 +33,7 @@ const Projects = ({data,onChange}) => {
             <h1 className='flex items-center gap-2 text-lg font-semibold text-gray-500'>Projects</h1>
             <p className='text-sm text-gray-500'>Add your projects</p>
            </div>
-           <button onClick={addProject} className='flex items-center gap-2 px-3 py-2 text-sm bg-purple-100 text-purple-700 rounded hover:bg-purple-200 transition-colors disable:opacity-50'>
+           <button  type="button" onClick={addProject} className='flex items-center gap-2 px-3 py-2 text-sm bg-purple-100 text-purple-700 rounded hover:bg-purple-200 transition-colors disable:opacity-50'>
 
             <Plus className='size-4'/>
             Add Projects
@@ -50,7 +51,7 @@ const Projects = ({data,onChange}) => {
       
        ( <div className='space-y-4'>
              {data.map((project,index)=>(
-                <div className='p-4 border- border-gray-200 rounded-lg space-y-3' key={index}>
+                <div className='p-4 border border-gray-200 rounded-lg space-y-3' key={index}>
                       <div className='flex justify-between items-start'>
                           <h4>Project #{index +1}</h4>
                           <button  onClick={()=>removeProject(index)} className='text-red-500 hover:text-red-700 transition-colors'>
@@ -63,8 +64,7 @@ const Projects = ({data,onChange}) => {
                       <div className='grid  gap-3'>
                         <input type="text"  placeholder='Name Your Project' value={project.name || ""}  onChange={(e)=>updateProject(index,"name",e.target.value)}  className='px-3 py-2 text-sm rounded-lg '/>
                         
-                         <input type="text"  placeholder='Type of Your Project' value={project.types || ""}  onChange={(e)=>updateProject(index,"types",e.target.value)}  className='px-3 py-2 text-sm rounded-lg '/>
-                          <textarea rows={6}   placeholder='Describe your project' value={project.descripction || ""}  onChange={(e)=>updateProject(index,"descripction",e.target.value)}  className='w-full px-3 py-2 text-sm rounded-lg resize-none '/>
+                                                   <textarea rows={6}   placeholder='Describe your project' value={project.description || ""}  onChange={(e)=>updateProject(index,"description",e.target.value)}  className='w-full px-3 py-2 text-sm rounded-lg resize-none '/>
                                               </div>
 
 

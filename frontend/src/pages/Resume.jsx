@@ -13,6 +13,7 @@ import Projects from '../components/Projects'
 import Skills from '../components/Skills'
 import axios from 'axios'
 import { useAuthStore } from '../store'
+import { toast } from 'react-toastify'
 
 const Resume = () => {
 
@@ -32,7 +33,7 @@ const Resume = () => {
     },
     experience:[],
     education:[],
-    projects:[],
+    project:[],
     skills:[],
     template:'classic',
     accent_color:"#3b82f6",
@@ -50,7 +51,13 @@ const Resume = () => {
       const {data}=await axios.get(`${API_URL}/resume/get/`+resumeid,{ withCredentials: true });
       
       if(data.resume){
-        setResumeData(data.resume)
+       setResumeData({
+        ...data.resume,
+        project: data.resume.project || [],  
+        experience: data.resume.experience || [],
+        education: data.resume.education || [],
+        skills: data.resume.skills || [],
+      })
         document.title=data.resume.title;
       }
     } catch (error) {
@@ -68,7 +75,7 @@ const section=[
   {id:"summary",name:"sumamry",icon:FileText},
   {id:"experience",name:"Experience",icon:Briefcase},
   {id:"education",name:"Education",icon:GraduationCap},
-  {id:"projects",name:"Project",icon:FolderIcon},
+  {id:"project",name:"Project",icon:FolderIcon},
   {id:"skills",name:"Skill",icon:Sparkle}
 
 
@@ -81,7 +88,7 @@ const activeSection=section[activeSectionIndex]
 const changeResumeVisiblity=async()=>{
   try {
     const formdata=new FormData()
-    formdata.append("resumeid",resumeid)
+    formdata.append("resumeId",resumeid)
    formdata.append("resumeData",JSON.stringify({public:!resumeData.public}))
   
     const {data}=await axios.put(`${API_URL}/resume/update`,{
@@ -96,6 +103,30 @@ const changeResumeVisiblity=async()=>{
   }
 }
 
+
+const saveChanges=async()=>{
+
+  try {
+      
+    let updatedResumeData= structuredClone(resumeData);
+    if( typeof resumeData.personal_info.image==="object"){
+      delete updatedResumeData.personal_info.image
+    }
+
+    const formdata=new FormData()
+    formdata.append("resumeId",resumeid)
+    formdata.append("resumeData",JSON.stringify(updatedResumeData))
+
+    removeBackground && formdata.append("removeBackground","yes")
+    typeof resumeData.personal_info.image==="object" && formdata.append("image",resumeData.personal_info.image)
+    const {data}=await axios.put(`${API_URL}/resume/update`,formdata,{withCredentials:true})
+    setResumeData(data.resume)
+    console.log("saving project data:", resumeData.project)
+    toast.success('succefull saved')
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 const handleShare=()=>{
   const frontendurl=window.location.href.split('/app/')[0]
@@ -193,8 +224,8 @@ const downloadResume=()=>{
 
 
                         {
-                          activeSection.id==="projects" && (
-                            <Projects data={resumeData.projects}  onChange={(data)=>setResumeData(prev=>({...prev,projects:data}))} />
+                          activeSection.id==="project" && (
+                            <Projects data={resumeData.project}  onChange={(data)=>setResumeData(prev=>({...prev,project:data}))} setResumeData={setResumeData} />
                           )
                         }
 
@@ -211,7 +242,7 @@ const downloadResume=()=>{
 
                         
                        </div>
-                       <button className='bg-gradient-to-br from-blue-100 to-blue-200 ring ring-blue-600 text-blue-600 hover:ring-blue-500 transition-all rounded-md px-6 py-2 mt-6 text-sm'>Save Changes</button>
+                       <button  onClick={()=>saveChanges()} className='bg-gradient-to-br from-blue-100 to-blue-200 ring ring-blue-600 text-blue-600 hover:ring-blue-500 transition-all rounded-md px-6 py-2 mt-6 text-sm'>Save Changes</button>
                      </div>
 
 
