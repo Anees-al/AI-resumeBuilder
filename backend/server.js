@@ -13,7 +13,7 @@ const app=express();
 connectDb()
 
 const allowedOrigins = [
-  'http://localhost:5173', // development
+  //'http://localhost:5173', // development
   'https://ai-resume-builder-pearl-ten.vercel.app' // production
 ];
 
