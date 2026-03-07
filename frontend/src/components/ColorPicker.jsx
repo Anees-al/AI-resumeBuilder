@@ -1,5 +1,6 @@
 import { Check, Palette } from 'lucide-react';
 import React, { useState } from 'react'
+import { Value } from 'sass';
 
 const ColorPicker = ({selectedColor,onChange}) => {
     const colors=[
@@ -10,7 +11,11 @@ const ColorPicker = ({selectedColor,onChange}) => {
          {name:'Red',value:'#EE4B2B'},
          {name:'Black',value:'#000000'},
          {name:'Charcoal',value:'#36454F'},
-         {name:'Orange',value:'#FFAC1C'}
+         {name:'Orange',value:'#FFAC1C'},
+         {name:'Brown',value:'#A52A2A'},
+         {name:'Violet',value:"#7F00FF"},
+         {name:'Teal',value:'#008080'},
+         {name:'Lavender',value:'#D3D3FF'}
 
     ]
 
