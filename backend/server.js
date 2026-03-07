@@ -12,12 +12,24 @@ dotenv.config()
 const app=express();
 connectDb()
 
-app.use(
-  cors({
-    origin: "http://localhost:5173", // frontend URL
-    credentials: true,
-  })
-);
+const allowedOrigins = [
+  'http://localhost:5173', // development
+  'https://ai-resume-builder-pearl-ten.vercel.app' // production
+];
+
+app.use(cors({
+  origin: function(origin, callback) {
+    // allow requests with no origin like Postman
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'The CORS policy does not allow access from this origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true
+}));
 app.use(express.json())
 app.use(cookieParser())
 
