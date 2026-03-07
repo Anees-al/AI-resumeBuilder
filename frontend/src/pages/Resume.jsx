@@ -14,11 +14,12 @@ import Skills from '../components/Skills'
 import axios from 'axios'
 import { useAuthStore } from '../store'
 import { toast } from 'react-toastify'
+import { API_URL } from "../store"
 
 const Resume = () => {
 
  const {resumeid}=useParams()
- const {API_URL}=useAuthStore()
+ 
   const [resumeData,setResumeData]=useState({
     _id:'',
     title:'',

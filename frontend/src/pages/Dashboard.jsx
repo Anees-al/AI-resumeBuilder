@@ -3,9 +3,10 @@ import React, { useEffect, useState } from 'react'
 import { dummyResumeData } from '../assets/assets';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store';
+import { API_URL } from "../store"
 import axios from 'axios';
 const Dashboard = () => {
-  const {API_URL}=useAuthStore()
+  
   const [allresume,setAllresume]=useState([]);
   const [showCreateResume,setShowCreateResume]=useState(false);
   const [showUploadResume,setShowUploadResume]=useState(false)
@@ -16,8 +17,10 @@ const Dashboard = () => {
   
 
   const loadResume=async()=>{
+     console.log(API_URL)
     try {
       const {data}=await axios.get(`${API_URL}/user/resume`,{ withCredentials: true })
+     
       setAllresume(data.resume);
       console.log(data)
     } catch (error) {
