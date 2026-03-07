@@ -7,7 +7,7 @@ const API_URL = "http://localhost:5000/api"
 export const useAuthStore = create(
   persist(
     (set,get) => ({
-      API_URL :"http://localhost:5000/api",
+      API_URL :" https://ai-resumebuilder-4vr2.onrender.com",
       user: null,
       isAuthenticated: false,
 
