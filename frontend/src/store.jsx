@@ -12,7 +12,7 @@ export const useAuthStore = create(
       isAuthenticated: false,
 
       login: async (data) => {
-        const res = await axios.post(`${API_URL}/user/login`, data, {
+        const res = await axios.post(`${API_URL}/api/user/login`, data, {
           withCredentials: true,
         })
 
