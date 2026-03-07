@@ -34,7 +34,7 @@ export const createUser=async(req,res)=>{
         httpOnly:true,
         secure:process.env.NODE_ENV === 'production',
         sameSite:process.env.NODE_ENV === 'production' ?'none':'strict',
-        maxAge:7*24*60*60*1000
+        
     })
 
 
@@ -76,7 +76,7 @@ export const login=async(req,res)=>{
         httpOnly:true,
         secure:process.env.NODE_ENV === 'production',
         sameSite:process.env.NODE_ENV === 'production' ?'none':'strict',
-        maxAge:7*24*60*60*1000
+        
     })
         return  res.status(200).json({message:'successfully get the user',user,token})
     } catch (error) {
@@ -88,10 +88,11 @@ export const login=async(req,res)=>{
 
 export const logout=async(req,res)=>{
     try {
-        res.clearCookie('token',{
-              httpOnly:true,
-            sameSite: "lax"
-        })
+        res.clearCookie("token", {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "strict"
+})
        return res.status(200).json({message:'successfully logout'})
     } catch (error) {
        return res.status(400).json({message:error.message})
