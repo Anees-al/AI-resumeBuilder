@@ -17,7 +17,7 @@ const Dashboard = () => {
 
   const loadResume=async()=>{
     try {
-      const {data}=await axios.get(`${API_URL}/api/user/resume`,{ withCredentials: true })
+      const {data}=await axios.get(`${API_URL}/user/resume`,{ withCredentials: true })
       setAllresume(data.resume);
       console.log(data)
     } catch (error) {
@@ -35,7 +35,7 @@ loadResume()
 const createResume=async(e)=>{
   try {
     e.preventDefault();
-    const {data}=await axios.post(`${API_URL}/api/resume/createresume`,{ title },{ withCredentials: true });
+    const {data}=await axios.post(`${API_URL}/resume/createresume`,{ title },{ withCredentials: true });
     console.log(data)
     setAllresume([...allresume,data.newResume])
     setTile('')
@@ -59,7 +59,7 @@ const uploadResume=(e)=>{
 const editTitle=async(e)=>{
  try {
   e.preventDefault()
-  const {data}=await axios.put(`${API_URL}/api/resume/update`,{resumeId:resumeEditId,resumeData:{title}},{ withCredentials: true })
+  const {data}=await axios.put(`${API_URL}/resume/update`,{resumeId:resumeEditId,resumeData:{title}},{ withCredentials: true })
   setAllresume(allresume.map(resume=>resume._id===resumeEditId ?{...resume,title}:resume))
   setTile('')
   setResumeEditId('')
@@ -75,7 +75,7 @@ const deleteResume=async(resumeId)=>{
    const confirm=window.confirm('Are you sure want to delete this resume')
 
   if(confirm){
-    const {data}= await axios.delete(`${API_URL}/api/resume/delete/${resumeId}`,{ withCredentials: true })
+    const {data}= await axios.delete(`${API_URL}/resume/delete/${resumeId}`,{ withCredentials: true })
     setAllresume(allresume.filter(resume=>resume._id!==resumeId))
     console.log(data)
   }

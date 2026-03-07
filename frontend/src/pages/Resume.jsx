@@ -48,7 +48,7 @@ const Resume = () => {
 
   const loadResume=async()=>{
     try {
-      const {data}=await axios.get(`${API_URL}/api/resume/get/`+resumeid,{ withCredentials: true });
+      const {data}=await axios.get(`${API_URL}/resume/get/`+resumeid,{ withCredentials: true });
       
       if(data.resume){
        setResumeData({
@@ -91,7 +91,7 @@ const changeResumeVisiblity=async()=>{
     formdata.append("resumeId",resumeid)
    formdata.append("resumeData",JSON.stringify({public:!resumeData.public}))
   
-    const {data}=await axios.put(`${API_URL}/api/resume/update`,{
+    const {data}=await axios.put(`${API_URL}/resume/update`,{
         resumeId: resumeid,
         resumeData: { public: !resumeData.public }
       },{ withCredentials: true });
@@ -119,7 +119,7 @@ const saveChanges=async()=>{
 
     removeBackground && formdata.append("removeBackground","yes")
     typeof resumeData.personal_info.image==="object" && formdata.append("image",resumeData.personal_info.image)
-    const {data}=await axios.put(`${API_URL}/api/resume/update`,formdata,{withCredentials:true})
+    const {data}=await axios.put(`${API_URL}/resume/update`,formdata,{withCredentials:true})
     setResumeData(data.resume)
     console.log("saving project data:", resumeData.project)
     toast.success('succefull saved')
