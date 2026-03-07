@@ -39,7 +39,7 @@ const Experience = ({data,onChange}) => {
        setLoading(true)
       try {
         const description = data[index].description
-        const res=await axios.post(`${API_URL}/ai/enhance-job`,{userContent:description})
+        const res=await axios.post(`${API_URL}/api/ai/enhance-job`,{userContent:description})
 
         const updated = [...data]
 

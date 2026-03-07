@@ -11,7 +11,7 @@ const ProfessionalSummary = ({data,onChnage,setResumeData}) => {
   const enhance=async()=>{
     setLoading(true)
     try {
-      const res=await axios.post(`${API_URL}/ai/enhance-summary`,{userContent:data})
+      const res=await axios.post(`${API_URL}/api/ai/enhance-summary`,{userContent:data})
       console.log(res)
       setResumeData((prev) => ({
         ...prev,

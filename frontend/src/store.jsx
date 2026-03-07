@@ -25,7 +25,7 @@ export const useAuthStore = create(
       },
 
       createUser: async (data) => {
-        const res = await axios.post(`${API_URL}/user/createuser`, data, {
+        const res = await axios.post(`${API_URL}/api/user/createuser`, data, {
           withCredentials: true,
         })
 
@@ -38,7 +38,7 @@ export const useAuthStore = create(
       },
 
     logout:async () =>{
-         const res = await axios.post(`${API_URL}/user/logout`, {}, {
+         const res = await axios.post(`${API_URL}/api/user/logout`, {}, {
           withCredentials: true,
         })
         set({
