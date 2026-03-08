@@ -1,6 +1,6 @@
 import { Check, Palette } from 'lucide-react';
 import React, { useState } from 'react'
-import { Value } from 'sass';
+
 
 const ColorPicker = ({selectedColor,onChange}) => {
     const colors=[
