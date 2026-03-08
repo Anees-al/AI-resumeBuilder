@@ -8,7 +8,9 @@ const TempalteSelector = ({selectedTemplate,onChange}) => {
         {id:"classic",name:'Classic',preview:"A clean traditional resume format with clear section and professional typography" },
          {id:"modern",name:'Modern',preview:"sleek design with statrgic use of colors and modern fonts" },
           {id:"minimal-image",name:'Minimal Image',preview:"Minimal design with single image and clean typography" },
-           {id:"minimal",name:'Minimal',preview:"ultra clean design that put you content front and center" }
+           {id:"minimal",name:'Minimal',preview:"ultra clean design that put you content front and center" },
+           { id: "modern-sidebar", name: "Modern Sidebar", preview: "A modern two-column resume layout with a colored sidebar highlighting contact info, skills, and education."},
+           { id: "professional-split", name: "Professional Split", preview: "Balanced two-column professional layout separating skills and summary from work experience."}
     ]
   return (
     <div className='relative'>

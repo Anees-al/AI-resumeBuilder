@@ -3,6 +3,8 @@ import ModernTemplate from './templates/ModernTemplate'
 import ClassicTemplate from './templates/ClassicTemplate'
 import MinimalImageTemplate from './templates/MinimalImageTemplate'
 import MinimalTemplate from './templates/MinimalTemplate'
+import ModernSidebarTemplate from './templates/ModernSidebarTemplate'
+import ProfessionalSplitTemplate from './templates/ProfessionalSplitTemplate'
 
 const ResumePreview = ({data,template,accentColor,classes=""}) => {
 
@@ -15,7 +17,12 @@ const ResumePreview = ({data,template,accentColor,classes=""}) => {
             case "minimal":
                 return <MinimalTemplate  data={data}  accentColor={accentColor}/>        
             case "minimal-image":
-                return <MinimalImageTemplate  data={data}  accentColor={accentColor}/>      
+                return <MinimalImageTemplate  data={data}  accentColor={accentColor}/> 
+                
+            case "modern-sidebar":
+                return <ModernSidebarTemplate  data={data}  accentColor={accentColor}/>  
+            case "professional-split" : 
+                 return <ProfessionalSplitTemplate  data={data}  accentColor={accentColor}/>   
         
             default:
                 return <ClassicTemplate  data={data}  accentColor={accentColor}/> 
