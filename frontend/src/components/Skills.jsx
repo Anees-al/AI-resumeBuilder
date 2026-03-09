@@ -1,9 +1,12 @@
 import { Plus, Sparkle, X } from 'lucide-react';
 import React from 'react'
 import { useState } from 'react'
+import axios from 'axios'
+import { API_URL } from "../store"
 
 const Skills = ({data,onChange}) => {
     const [newSkill,setNewSkill]=useState('');
+    const [loading,setLoading]=useState(false)
 
     const addSkill=()=>{
         if(newSkill.trim() && !data.includes(newSkill.trim())){
@@ -13,6 +16,21 @@ const Skills = ({data,onChange}) => {
     }
 
 
+
+     const enhanceSkill = async () => {
+    if (!newSkill.trim()) return;
+    setLoading(true);
+    try {
+      const res = await axios.post(`${API_URL}/ai/enhanceskill`, {
+        userContent: newSkill.trim(),
+      });
+      setNewSkill(res.data.enhancedContent); // put AI-enhanced skill into input
+    } catch (error) {
+      console.log(error.response?.data || error.message);
+      alert("Failed to enhance skill. Try again later.");
+    }
+    setLoading(false);
+  };
     const removeSkill=(indextoremove)=>{
             onChange(data.filter((_,index)=>index!==indextoremove))
     }
@@ -34,9 +52,18 @@ const Skills = ({data,onChange}) => {
 
        <div className='flex gap-2'>
           <input type="text" className='flex-1 px-3 py-2 text-sm'  placeholder='Enter a skill' onChange={(e)=>setNewSkill(e.target.value)}  value={newSkill}  onKeyDown={handleKeyPress}/>
+           <button
+          onClick={enhanceSkill}
+          disabled={!newSkill.trim() || loading}
+          className="px-3 py-2 text-sm bg-green-500 text-white rounded hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {loading ? "Enhancing..." : "AI Enhance"}
+        </button>
           <button onClick={addSkill}  disabled={!newSkill.trim} className='flex items-center gap-2 px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disable:opacity-50 disable:cursor-not-allowed'>
             <Plus className='size-4'/>
           </button>
+
+          
        </div>
 
        {data.length > 0 ? (
@@ -53,6 +80,7 @@ const Skills = ({data,onChange}) => {
             >
               <X className='w-3 h-3'/>
             </button>
+           
          </span>
       ))}
    </div>

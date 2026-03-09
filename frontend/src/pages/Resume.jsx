@@ -92,10 +92,7 @@ const changeResumeVisiblity=async()=>{
     formdata.append("resumeId",resumeid)
    formdata.append("resumeData",JSON.stringify({public:!resumeData.public}))
   
-    const {data}=await axios.put(`${API_URL}/resume/update`,{
-        resumeId: resumeid,
-        resumeData: { public: !resumeData.public }
-      },{ withCredentials: true });
+    const {data}=await axios.put(`${API_URL}/resume/update`,formdata,{ withCredentials: true });
     setResumeData({...resumeData,public:!resumeData.public})
     
       
