@@ -64,3 +64,49 @@ export const enhanceJobDescripction=async(req,res)=>{
          return res.status(400).json({message:error.message});
       }
 }
+
+
+
+export const enhanceSkillAts=async(req,res)=>{
+      try {
+        const {userContent}=req.body;
+        if(!userContent){
+            return res.status(400).json({message:"user not enter the skill"});
+        }
+
+       const response= await ai.chat.completions.create({
+            model: process.env.OPENAI_MODEL,
+       messages: [
+        {   role: "system",
+            content:`You are an expert resume writer and recruiter. I will give you any skill in shorthand, casual, or abbreviation form (like “js” or “react”). 
+
+Your task:
+- Convert it to the correct **ATS-friendly keyword** recognized by recruiters.
+- Output only the converted skill, nothing else.
+- Always use industry-standard names and proper capitalization.
+
+Example:
+Input: js
+Output: JavaScript
+
+Input: react
+Output: React.js
+
+Input: node
+Output: Node.js
+`
+        },
+        {
+            role: "user",
+            content: userContent,
+        },
+    ],
+        })
+
+
+        const enhancedContent=response.choices[0].message.content;
+        return res.status(200).json({message:'successfully get the content',enhancedContent})
+      } catch (error) {
+         return res.status(400).json({message:error.message});
+      }
+}
