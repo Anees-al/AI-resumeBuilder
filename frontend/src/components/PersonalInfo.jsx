@@ -2,17 +2,15 @@ import { BriefcaseBusiness, Globe, Linkedin, LocationEdit, Mail, Phone, User } f
 import React from 'react'
 
 const PersonalInfo = ({data,onChange,removeBackground,setRemoveBackground}) => {
-
-    const handleChange=(field,value)=>{
-           onChange({...data,[field]:value})
-    }
-
+const handleChange = (field, value) => {
+  onChange({...data, [field]: value})
+}
     const fields=[
         {key:'full_name',label:'Full Name',icon:User,type:"text",required:true},
         {key:'email',label:'Email Address',icon:Mail,type:"email",required:true},
         {key:'phone',label:'Phone Number',icon:Phone,type:"tel"},
         {key:'location',label:'Location',icon:LocationEdit,type:"text"},
-        {key:'profession',label:'Profession',icon:BriefcaseBusiness,type:Text,required:true},
+        {key:'profession',label:'Profession',icon:BriefcaseBusiness,type:"text",required:true},
         {key:'linkedin',label:'LinkedIn',icon:Linkedin,type:"url"},
         {key:'website',label:'Web site',icon:Globe,type:"url"},
 
@@ -23,14 +21,14 @@ const PersonalInfo = ({data,onChange,removeBackground,setRemoveBackground}) => {
       <p className='text-sm text-gray-600'>Get Started with Personal Information</p>
 
 
-      <div className='flex item-center gap-3'>
+      <div className='flex items-center gap-3'>
     <label htmlFor="imageUpload">
         {
         data.image ? (
             <img src={typeof data.image==='string'? data.image : URL.createObjectURL(data.image)} alt='profile' className='w-16 h-16 rounded-full object-cover mt-4 ring ring-slate-500 hover:opacity-80'/>
         ):(
             <div className='inline-flex items-center gap-2 mt-5 text-slate-600 hover:text-slate-500 cursor-pointer'>
-                <User className='size-10 p-2.5 border- rounded-full'/>
+                <User className='size-10 p-2.5 border rounded-full'/>
                 <p>Upload the user image</p>
             </div>
         )
@@ -41,17 +39,25 @@ const PersonalInfo = ({data,onChange,removeBackground,setRemoveBackground}) => {
     </label>
 
     {
-        typeof data.image === 'object' && (
+        data.image instanceof File && (
             <div className='flex flex-col gap-1 pl-4 text-sm'>
                  <p>Remove Background</p>
 
-                 <label htmlFor="" className='relative inline-flex items-center cursor-pointer text-gray-700 gap-2'>
-
-                    <input type="checkbox" className='sr-only peer'  onChange={()=>setRemoveBackground(prev=>!prev)}  checked={removeBackground}/>
-
-                    <div className='w-9 h-5 bg-slate-300 rounded-full  peer-checked:bg-gray-600 transition-colors duration-200'></div>
-                    <span className='dot absolute left-1 top-1 w-3 h-3 bg-white rounded-full transition-transform duration-200 ease-in-out peer-checked:translate-x-4'></span>
-                 </label>
+                <label className='relative inline-flex items-center cursor-pointer text-gray-700 gap-2'>
+  <input
+    type="checkbox"
+    className='sr-only peer'
+    onChange={() => setRemoveBackground(prev => !prev)}
+    checked={removeBackground}
+  />
+  <div className='relative w-9 h-5 bg-slate-300 rounded-full peer-checked:bg-gray-600 transition-colors duration-200'>
+    <span
+      className={`absolute left-1 top-1 w-3 h-3 bg-white rounded-full transition-transform duration-200 ease-in-out ${
+        removeBackground ? 'translate-x-4' : 'translate-x-0'
+      }`}
+    />
+  </div>
+</label>
             </div>
         )
     }
