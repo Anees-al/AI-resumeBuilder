@@ -18,7 +18,7 @@ const Hero = () => {
             <div className="h-[80vh] pb-20">
                 {/* Navbar */}
                 <div className="w-full py-2.5 font-medium text-sm text-indigo-800 text-center bg-gradient-to-r from-indigo-100 to-indigo-300">
-            <p><span className="px-3 py-1 rounded-lg text-white bg-indigo-500 mr-2">New</span >AI Feature Added</p>
+            <p><span className="px-3 py-1 rounded-lg text-white bg-red-500 mr-2">New</span >AI Feature Added</p>
         </div>
                 <nav className="z-50 flex items-center justify-between w-full py-4 px-6 md:px-16 lg:px-24 xl:px-40 text-sm">
                     <Link className='text-2xl font-semibold cursor-pointer'  onClick={navigate('/')}>
