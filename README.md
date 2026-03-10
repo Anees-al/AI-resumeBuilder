@@ -33,6 +33,9 @@ An intelligent resume builder powered by MERN Stack and Google Gemini AI that he
 | Password | Demo@1234    
 
 
+#🔗  **Live App:** https://ai-resume-builder-pearl-ten.vercel.app/
+
+
 > This is a shared demo account use this for login
 
 
