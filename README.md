@@ -24,6 +24,18 @@ An intelligent resume builder powered by MERN Stack and Google Gemini AI that he
 | Deployement | Render,Vercel |
 
 
+## 🧪 Demo Account
+
+
+| Field    | Value                    |
+|----------|--------------------------|
+| Email    | demo@resumeai.com        |
+| Password | Demo@1234    
+
+
+> This is a shared demo account use this for login
+
+
 
 # 👤 Author
 
