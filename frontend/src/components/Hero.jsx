@@ -15,22 +15,15 @@ const Hero = () => {
 
   return (
      <>
-            <div className="h-[80vh] pb-20">
+            <div className="h-[100vh] pb-20">
                 {/* Navbar */}
-                <div className="w-full py-2.5 font-medium text-sm text-indigo-800 text-center bg-gradient-to-r from-indigo-100 to-indigo-300">
-            <p><span className="px-3 py-1 rounded-lg text-white bg-indigo-500 mr-2">New</span >AI Feature Added</p>
-        </div>
-                <nav className="z-50 flex items-center justify-between w-full py-4 px-6 md:px-16 lg:px-24 xl:px-40 text-sm">
+                
+                <nav className="z-50 flex items-center justify-between w-full py-4 px-6 md:px-16 lg:px-24 xl:px-40 text-sm shadow-lg shadow-gray-400 bg-white">
                     <Link className='text-2xl font-semibold cursor-pointer'  onClick={navigate('/')}>
                         Resume
                     </Link>
 
-                    <div className="hidden md:flex items-center gap-8 transition duration-500 text-slate-800">
-                        <a href="#" className="hover:text-indigo-600 transition">Home</a>
-                        <a href="#features" className="hover:text-indigo-600 transition">Features</a>
-                        <a href="#testimonials" className="hover:text-indigo-600 transition">Testimonials</a>
-                        <a href="#contact" className="hover:text-indigo-600 transition">Contact</a>
-                    </div>
+                   
 
                     <div className="flex gap-2">
                         
@@ -75,7 +68,7 @@ const Hero = () => {
                 }
 
                 {/* Hero Section */}
-                <div className="relative flex flex-col items-center justify-center text-sm px-4   text-black">
+                <div className="relative flex flex-col items-center justify-center text-sm px-4  text-black">
                                         
 
                     {/* Headline + CTA */}

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store';
 import { API_URL } from "../store"
 import axios from 'axios';
+import Fotter from '../components/Fotter';
 const Dashboard = () => {
   
   const [allresume,setAllresume]=useState([]);
@@ -90,6 +91,7 @@ const deleteResume=async(resumeId)=>{
 
 
   return (
+    <div className='flex flex-col'>
     <div className='flex flex-col px-10 py-5'>
       <h1 className='text-2xl font-semibold'>Welocome User</h1>
 
@@ -197,6 +199,9 @@ const deleteResume=async(resumeId)=>{
           </form>
         )
       }
+    </div>
+
+    <Fotter/>
     </div>
   )
 }

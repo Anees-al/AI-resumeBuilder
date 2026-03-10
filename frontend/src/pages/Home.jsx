@@ -5,7 +5,7 @@ import Fotter from '../components/Fotter'
 
 const Home = () => {
   return (
-    <div>
+    <div className='bg-gray-200'>
         <Hero/>
        <Features/>
         <Fotter/>
