@@ -22,3 +22,10 @@ An intelligent resume builder powered by MERN Stack and Google Gemini AI that he
 | Auth | JWT |
 | state management | Zustand |
 | Deployement | Render,Vercel |
+
+
+
+# 👤 Author
+
+- Anees A L
+- LinkedIn: www.linkedin.com/in/anees-al  
