@@ -2,10 +2,11 @@ import { Briefcase, Plus, Sparkle, Trash } from 'lucide-react'
 import React, { useState } from 'react'
 import { useAuthStore } from '../store'
 import axios from 'axios'
+import { API_URL } from '../store'
 
 const Experience = ({data,onChange}) => {
 
-    const {API_URL}=useAuthStore()
+    
     const [loading,setLoading]=useState(false)
     const addExperience=()=>{
         const newExperience={

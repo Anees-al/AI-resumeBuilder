@@ -3,9 +3,10 @@ import { Sparkle } from 'lucide-react'
 import React from 'react'
 import { useAuthStore } from '../store'
 import { useState } from 'react'
+import { API_URL } from '../store'
 
 const ProfessionalSummary = ({data,onChnage,setResumeData}) => {
-  const {API_URL} =useAuthStore()
+  
   const [loading,setLoading] = useState(false)
 
   const enhance=async()=>{
