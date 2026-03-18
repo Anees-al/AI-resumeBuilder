@@ -33,7 +33,7 @@ const Login = () => {
       toast.success("successfully logined")
 
     } else {
-      navigate('/')
+      
       await createUser(formData)
       navigate('/')
       toast.success("successfully registered")
